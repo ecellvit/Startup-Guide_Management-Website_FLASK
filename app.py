@@ -133,4 +133,4 @@ def addItem(token, userID):
     return render_template('addItemPage.html', token = token, userID = userID)
 
 if __name__ == "__main__" :
-    app.run()
+    app.run(debug=True)
