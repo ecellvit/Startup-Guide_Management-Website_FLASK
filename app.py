@@ -67,43 +67,43 @@ def login():
 def home(accessToken, userID):
     if (loggedInUsers[int(userID)].accessToken == accessToken):
         user = loggedInUsers[int(userID)]
-        r = requests.get(f"{hostURL}/api/getBooks")
+        r = requests.get(f"{hostURL}/api/getAllBooks")
         books = []
         for element in r.json():
             newItem = item(element['_id'],element['name'],element['category'], element['description'], element['link'], element['thumbnail'])
             books.append(newItem)
 
-        r = requests.get(f"{hostURL}/api/getBlogs")
+        r = requests.get(f"{hostURL}/api/getAllBlogs")
         blogs = []
         for element in r.json():
             newItem = item(element['_id'],element['name'],element['category'], element['description'], element['link'], element['thumbnail'])
             blogs.append(newItem)
 
-        r = requests.get(f"{hostURL}/api/getNewsletters")
+        r = requests.get(f"{hostURL}/api/getAllNewsletters")
         newsletters = []
         for element in r.json():
             newItem = item(element['_id'],element['name'],element['category'], element['description'], element['link'], element['thumbnail'])
             newsletters.append(newItem)
 
-        r = requests.get(f"{hostURL}/api/getStartupStories")
+        r = requests.get(f"{hostURL}/api/getAllStartupStories")
         startupStories = []
         for element in r.json():
             newItem = item(element['_id'],element['name'],element['category'], element['description'], element['link'], element['thumbnail'])
             startupStories.append(newItem)
 
-        r = requests.get(f"{hostURL}/api/getYoutubeChannels")
+        r = requests.get(f"{hostURL}/api/getAllYoutubeChannels")
         youtubeChannels = []
         for element in r.json():
             newItem = item(element['_id'],element['name'],element['category'], element['description'], element['link'], element['thumbnail'])
             youtubeChannels.append(newItem)
 
-        r = requests.get(f"{hostURL}/api/getPodcasts")
+        r = requests.get(f"{hostURL}/api/getAllPodcasts")
         podcasts = []
         for element in r.json():
             newItem = item(element['_id'],element['name'],element['category'], element['description'], element['link'], element['thumbnail'])
             podcasts.append(newItem)
 
-        r = requests.get(f"{hostURL}/api/getTweets")
+        r = requests.get(f"{hostURL}/api/getAllTweets")
         tweets = []
         for element in r.json():
             newItem = item(element['_id'],element['name'],element['category'], element['description'], element['link'], element['thumbnail'])
