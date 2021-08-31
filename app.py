@@ -1,3 +1,5 @@
+import json
+from json.decoder import JSONDecoder
 from flask import Flask, render_template, request, redirect, send_from_directory
 import requests
 from types import SimpleNamespace, resolve_bases
@@ -52,16 +54,20 @@ def login():
         data = {"email" : request.form['email'], "name" : request.form['Username'], "password" : request.form['password']}
         headers = {"content-type" : "application/json"}
         r = requests.post(f"{hostURL}/api/auth/login", json=data, headers = headers)
-        data = r.json()
+    
         if r.status_code == 200:
             newUser = user(username=request.form['Username'], email=request.form['email'], accessToken= data['accessToken'], refreshToken=data['refreshToken'])
             newUserID = random.randint(1000000, 9999999)
             loggedInUsers[newUserID] = newUser
             return redirect(f'/homepage/{data["accessToken"]}/{newUserID}')
         else :
-            return redirect('/authentication')
+            return redirect(f"/error/{r.status_code}/{r.text}")
     else :
         return "Sorry this route is not accessable"
+
+@app.route('/error/<statuscode>/<error>', methods = ['POST', 'GET'])
+def error(statuscode, error):
+    return render_template('errorPage.html', statuscode = statuscode, error = error )
 
 @app.route('/homepage/<accessToken>/<userID>', methods = ['GET', 'POST'])
 def home(accessToken, userID):
